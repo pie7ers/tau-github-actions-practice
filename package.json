@@ -10,7 +10,8 @@
     "test": "jest",
     "act:wf:unit-test": "act -W .github/workflows/run-unit-tests.yml -s ACT=true",
     "eslint": "eslint",
-    "act:eslint": "act -W .github/workflows/eslint.yml"
+    "act:eslint": "act -W .github/workflows/eslint.yml",
+    "act:api-build": "act -W .github/workflows/api-build.yml"
   },
   "keywords": [],
   "author": "",

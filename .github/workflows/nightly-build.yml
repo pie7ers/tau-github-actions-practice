@@ -1,0 +1,32 @@
+name: nightly build at 10 pm
+
+on:
+  schedule:
+    # Runs at 10:00 pm Colombia time
+    - cron: "0 03 * * *"
+
+jobs:
+  run-unit-test:
+    runs-on: ubuntu-latest
+    env:
+      PORT: ${{ vars.PORT }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run unit tests
+        run: npm run build
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ env.ACT != 'true' }}
+        with: 
+          name: simulate build
+          path: ./dist
+          retention-days: 3

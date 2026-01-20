@@ -1,0 +1,31 @@
+name: build by API
+run-name: Build by API from user ${{ github.actor }}
+
+on:
+  repository_dispatch:
+    types: [api-build]
+
+jobs:
+  api-build:
+    name: Build Job via API
+    runs-on: ubuntu-latest
+    env:
+      PORT: ${{ vars.PORT }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+    
+      - name: Echo Client Payload
+        if: ${{ env.ACT != 'true' }}
+        run: |
+          echo '${{ toJson(github.event.client_payload) }}'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build
+        run: npm run build

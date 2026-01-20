@@ -1,0 +1,6 @@
+### GET HEALTH
+
+GET http://localhost:3000/health
+Content-Type: application/json
+
+###

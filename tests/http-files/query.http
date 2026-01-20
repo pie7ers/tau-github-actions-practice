@@ -1,0 +1,6 @@
+### GET QUERY
+
+GET http://localhost:3000/query
+Content-Type: application/json
+
+###

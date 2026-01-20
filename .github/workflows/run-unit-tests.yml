@@ -4,8 +4,6 @@ on:
   push:
     branches:
       - "feat/*"
-  pull_request:
-    branches: [main]
 
 jobs:
   run-unit-test:

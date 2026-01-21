@@ -1,0 +1,73 @@
+# e2e Pipeline
+
+a small sample of CodeQL when you need to analyze a repo with many languages
+
+```yml
+name: e2e pipeline
+run-name: Build, Deploy, Test from user @${{ github.actor }}
+
+on:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      PORT: ${{ vars.PORT }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: lts/*
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run Unit Tests
+        run: npm test
+
+      - name: Build
+        run: npm run build
+
+      - uses: actions/upload-artifact@v4
+        if: ${{ env.ACT != 'true' }}
+        with: 
+          name: simulate build
+          path: ./dist
+          retention-days: 3
+
+  analyze:
+    runs-on: ubuntu-latest
+    permissions:
+      # allow read info from the current workflow, likewise previous executions, artifacts, and CodeQL to query the execution context
+      actions: read
+      # allow read files of the repo, access to historical commits, download repository content via API
+      contents: read
+      # allow analyze and the result be uploaded to Github/security/code scanning
+      security-events: write
+
+    strategy:
+      # if one of the matrix jobs fails the others will not be cancelled
+      fail-fast: false
+      matrix:
+        language: ['typescript', 'java']
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        
+      - name: Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+    
+      - name: Autobuild
+        uses: github/codeql-action/autobuild@v3
+    
+      - name: Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"
+```

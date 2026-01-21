@@ -1,3 +1,5 @@
+[![nightly build at 10 pm](https://github.com/pie7ers/tau-github-actions-practice/actions/workflows/nightly-build.yml/badge.svg)](https://github.com/pie7ers/tau-github-actions-practice/actions/workflows/nightly-build.yml)
+
 # GITHUB ACTIONS PRACTICE
 
 ## Diff between artifacts and dependency caching in Github actions
@@ -17,6 +19,7 @@
 - execute npm run make-secrets and add the respective secrets bear in mind: 
 - basic example: act -j test -s ACT=true
 - in the [package.json](./package.json) yo will find more act commands, they start with `act` prefix
+- to test e2e-pipeline.yml locally with act run the command `act:e2e-pipeline` and it's necessary add a file .secrets with the respective GITHUB_TOKEN
 
 ## Example to trigger api-build
 

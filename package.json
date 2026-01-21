@@ -11,7 +11,8 @@
     "act:wf:unit-test": "act -W .github/workflows/run-unit-tests.yml -s ACT=true",
     "eslint": "eslint",
     "act:eslint": "act -W .github/workflows/eslint.yml",
-    "act:api-build": "act -W .github/workflows/api-build.yml"
+    "act:api-build": "act -W .github/workflows/api-build.yml",
+    "act:e2e-pipeline": "act -W .github/workflows/e2e-pipeline.yml --secret-file .secrets -s ACT=true"
   },
   "keywords": [],
   "author": "",

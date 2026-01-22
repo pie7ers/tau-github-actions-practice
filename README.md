@@ -19,7 +19,17 @@
 - execute npm run make-secrets and add the respective secrets bear in mind: 
 - basic example: act -j test -s ACT=true
 - in the [package.json](./package.json) yo will find more act commands, they start with `act` prefix
-- to test e2e-pipeline.yml locally with act run the command `act:e2e-pipeline` and it's necessary add a file .secrets with the respective GITHUB_TOKEN
+- the workflow e2e-pipeline.yml does not work with act
+
+## Requirements/Steps to use CodeQL
+
+- the repo should be public
+- go to settings → Security → Advanced security
+- in the section Code Scanning (if is not visible check you repo is public)
+- in CodeQL Analaysis clic on Setup button and select advanced
+- Github will redirection you to a vie for creating a workflow, since the job already exists in the e2e-pipeline.yml, you just to cancel and do not create any other file
+- run the workflow
+
 
 ## Example to trigger api-build
 

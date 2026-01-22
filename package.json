@@ -4,8 +4,9 @@
   "description": "Diff between artifacts and dependency caching in Github actions",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon --exec node dist/src/server.js",
-    "ts-start": "nodemon --watch ./src --watch .env --ext ts,js,json,env --exec ts-node src/server.ts",
+    "start": "node dist/src/server.js",
+    "dev-js": "nodemon --exec node dist/src/server.js",
+    "dev-ts": "nodemon --watch ./src --watch .env --ext ts,js,json,env --exec ts-node src/server.ts",
     "build": "tsc -p tsconfig.ci.json",
     "test": "jest",
     "act:wf:unit-test": "act -W .github/workflows/run-unit-tests.yml -s ACT=true",

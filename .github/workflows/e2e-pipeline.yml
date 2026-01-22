@@ -25,11 +25,14 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Build
+        run: npm run build
+
       - name: Run Unit Tests
         run: npm test
 
-      - name: Build
-        run: npm run build
+      - name: Run E2E Tests
+        run: npm test:e2e
 
       - uses: actions/upload-artifact@v4
         if: ${{ env.ACT != 'true' }}
@@ -73,3 +76,34 @@ jobs:
         uses: github/codeql-action/analyze@v4
         with:
           category: "/language:typescript"
+
+  #Render is used to deploy the API and handles the Continuous Deployment (CD) process.
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+    environment: test
+
+    steps:
+      - name: Download build artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: simulate build
+          path: ./dist
+
+      - name: Deploy (simulated)
+        run: |
+          echo "Deploying build to TEST environment"
+          ls -la dist
+    
+  #This step normally runs at the end of the build or deployment process.
+  #It is commonly used in projects that generate deployable artifacts,
+  #such as installers or Docker images, to clean temporary resources.
+  cleanup:
+    needs: deploy
+    runs-on: ubuntu-latest
+    environment: test
+    
+    steps:
+      - name: cleanup ${{ github.env }}
+        if: always()
+        run: echo "cleanup example"

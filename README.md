@@ -1,6 +1,13 @@
-[![nightly build at 10 pm](https://github.com/pie7ers/tau-github-actions-practice/actions/workflows/nightly-build.yml/badge.svg)](https://github.com/pie7ers/tau-github-actions-practice/actions/workflows/nightly-build.yml)
+[![nightly build at 10 pm CO](https://github.com/pie7ers/tau-github-actions-practice/actions/workflows/nightly-build.yml/badge.svg)](https://github.com/pie7ers/tau-github-actions-practice/actions/workflows/nightly-build.yml)
 
 # GITHUB ACTIONS PRACTICE
+
+This practice was base on [tau-github-actions-for-testing](https://testautomationu.applitools.com/github-actions-for-testing/chapter1.html)
+
+
+## CI/CD
+
+- GitHub Actions is responsible for the CI pipeline, while Render handles the CD process by automatically redeploying the application on changes to the main branch.
 
 ## Diff between artifacts and dependency caching in Github actions
 

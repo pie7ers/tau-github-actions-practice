@@ -120,7 +120,6 @@ jobs:
 
   trigger-test-repo:
     needs: deploy
-    if: success()
     runs-on: ubuntu-latest
     environment: test
     env:
@@ -133,12 +132,15 @@ jobs:
         with:
           app-id: ${{ secrets.GH_APP_ID }}
           private-key: ${{ secrets.GH_PRIVATE_KEY  }}
-      
+          owner: ${{ vars.TEST_REPO_OWNER }}
+          repositories: ${{ vars.TEST_REPO }}
+
       - name: Trigger repo tests
         run: |
           set -e
           curl -X POST \
             -H "Accept: application/vnd.github+json" \
+            -H "Content-Type: application/json" \
             -H "Authorization: Bearer ${{ steps.app-token.outputs.token }}" \
             https://api.github.com/repos/$TEST_FULL_REPO_OWNER/dispatches \
             -d "{
@@ -147,6 +149,6 @@ jobs:
                 \"env\": \"test\",
                 \"system\": \"Render\",
                 \"version\": \"1.2.3\",
-                \"actor\": \"${{ github.actor }}\"
+                \"trigger_by\": \"${{ github.actor }}\"
               }
             }"

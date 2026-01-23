@@ -37,7 +37,6 @@ This practice was base on [tau-github-actions-for-testing](https://testautomatio
 - Github will redirection you to a vie for creating a workflow, since the job already exists in the e2e-pipeline.yml, you just to cancel and do not create any other file
 - run the workflow
 
-
 ## Example to trigger api-build
 
 client_payload should be your payload
@@ -61,3 +60,28 @@ curl --location 'https://api.github.com/repos/{{GITHUB_USER}}/{{GITHUB_REPOSITOR
 - select Fine-grained tokens
 - generate a new token
 - copy the token
+
+
+
+## Send the request "trigger-tests" 
+
+you can use the [example](#example-to-trigger-api-build) to sen the request to the other repo
+
+other [option](#create-github-app-optional)
+
+## Create Github APP (Optional)
+
+- go to GitHub → Settings → Developer settings → Github Apps [here](https://github.com/settings/apps)
+- configure accesses to both repos
+- generate private key (save this)
+- set secrets
+    - APP_ID
+    - APP_PRIVATE_KEY
+- set workflow
+```yml
+- uses: actions/create-github-app-token@v2
+  id: app-token
+  with:
+    app-id: ${{ vars.APP_ID }}
+    private-key: ${{ secrets.PRIVATE_KEY }}
+```

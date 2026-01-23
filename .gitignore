@@ -16,3 +16,4 @@ dist
 bin
 *_delete
 *_DELETE
+*.pem

@@ -70,4 +70,27 @@ jobs:
         uses: github/codeql-action/analyze@v4
         with:
           category: "/language:${{ matrix.language }}"
+
+  #to trigger tests using shell file 
+  trigger-test-repo:
+    needs: deploy
+    if: success()
+    runs-on: ubuntu-latest
+    environment: test
+    
+    steps:
+      - name: generate token
+        uses: actions/create-github-app-token@v2
+        id: app-token
+        with:
+          app-id: ${{ secrets.GH_APP_ID }}
+          private-key: ${{ secrets.GH_PRIVATE_KEY  }}
+      
+      - name: Trigger repo tests
+        env: 
+          GITHUB_APP_TOKEN: ${{ steps.app-token.outputs.token }}
+          OWNER: ${{ github.actor }}
+        run: |
+          chmod +x .github/scripts/trigger-test-repo.sh
+          sh .github/scripts/trigger-test-repo.sh
 ```

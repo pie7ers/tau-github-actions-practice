@@ -4,12 +4,16 @@
   "description": "Diff between artifacts and dependency caching in Github actions",
   "main": "index.js",
   "scripts": {
+    "make-env": "ts-node utils/makeEnv.ts",
+    "make-secrets": "ts-node utils/makeSecrets.ts",
+    "get-token": "ts-node utils/getToken.ts",
     "start": "node dist/src/server.js",
     "dev-js": "nodemon --exec node dist/src/server.js",
     "dev-ts": "nodemon --watch ./src --watch .env --ext ts,js,json,env --exec ts-node src/server.ts",
     "build": "tsc -p tsconfig.ci.json",
     "test": "jest tests/unit",
     "test:api": "jest tests/service",
+    "test:trigger-test": "ts-node utils/repositoryDispatchTriggerTest.ts",
     "act:wf:unit-test": "act -W .github/workflows/run-unit-tests.yml -s ACT=true",
     "eslint": "eslint",
     "act:eslint": "act -W .github/workflows/eslint.yml",
@@ -23,6 +27,7 @@
   "devDependencies": {
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
+    "@types/jsonwebtoken": "^9.0.10",
     "@types/node": "^25.0.9",
     "@types/supertest": "^6.0.3",
     "@typescript-eslint/eslint-plugin": "^8.53.1",
@@ -32,6 +37,7 @@
     "eslint": "^9.39.2",
     "jest": "^30.2.0",
     "jiti": "^2.6.1",
+    "jsonwebtoken": "^9.0.3",
     "nodemon": "^3.1.11",
     "supertest": "^7.2.2",
     "ts-jest": "^29.4.6",
@@ -39,6 +45,7 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
+    "axios": "^1.13.2",
     "express": "^5.2.1"
   }
 }

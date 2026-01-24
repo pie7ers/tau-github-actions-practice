@@ -62,7 +62,6 @@ curl --location 'https://api.github.com/repos/{{GITHUB_USER}}/{{GITHUB_REPOSITOR
 - copy the token
 
 
-
 ## Send the request "trigger-tests" 
 
 you can use the [example](#example-to-trigger-api-build) to sen the request to the other repo
@@ -77,6 +76,10 @@ other [option](#create-github-app-optional)
 - set secrets
     - APP_ID
     - APP_PRIVATE_KEY
+- set permissions
+  - Contents: Read & write
+  - Actions: Read & write
+  - Metadata: read
 - set workflow
 ```yml
 - uses: actions/create-github-app-token@v2

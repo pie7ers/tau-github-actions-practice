@@ -32,7 +32,7 @@ jobs:
         run: npm run build
 
       - uses: actions/upload-artifact@v4
-        if: ${{ env.ACT != 'true' }}
+        if: ${{ always() && env.ACT != 'true' }}
         with: 
           name: simulate build
           path: ./dist

@@ -27,8 +27,6 @@ async function ghFetch(url: string, options: any = {}): Promise<any> {
       ...(options.headers ?? {}),
     },
   });
-  console.log("🚀 ~ ghFetch ~ res:", res);
-  console.log("🚀 ~ ghFetch ~ res:", typeof res);
 
   if (!res.ok) {
     const body = await res.text();

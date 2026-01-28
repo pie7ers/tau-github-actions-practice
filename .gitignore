@@ -2,8 +2,8 @@ node_modules
 screenshots
 evidences
 videos
-.env
-.secrets
+.env*
+.secrets*
 log*
 myTest
 reports*
@@ -12,7 +12,7 @@ coverage
 .DS_Store
 *.log
 *.tmp
-dist
+dist*
 bin
 *_delete
 *_DELETE
